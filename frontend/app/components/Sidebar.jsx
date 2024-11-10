@@ -21,10 +21,10 @@ export default function Sidebar() {
     <>
       {/* Mobile Toggle Button */}
       <button
-        className="fixed top-4 left-4 z-50 p-2 rounded-md bg-gray-800 text-white md:hidden"
+        className="fixed top-4 left-4 z-50 p-1 rounded-md bg-gray-800 text-white md:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {isOpen ? <HiX size={24} /> : <HiMenuAlt2 size={24} />}
+        {isOpen ? <HiX size={20} /> : <HiMenuAlt2 size={20} />}
       </button>
 
       {/* Sidebar */}
@@ -36,7 +36,7 @@ export default function Sidebar() {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="text-center text-2xl font-bold p-6 border-b border-gray-700">
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+            <span className={`bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent ${!isOpen && 'hidden'}`}>
               Admin Panel 
             </span>
           </div>
@@ -64,7 +64,7 @@ export default function Sidebar() {
           {/* Footer */}
           <div className="p-4 border-t border-gray-700">
             <div className="text-sm text-gray-400 text-center">
-              © 2024 Dashboard
+              © 2024 Dashboard by Amanj01
             </div>
           </div>
         </div>
