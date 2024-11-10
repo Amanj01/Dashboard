@@ -7,11 +7,12 @@ A powerful and professional admin dashboard built with Next.js, featuring user m
 - 🔐 Secure Authentication with NextAuth
 - 👥 User Management System
 - 🎨 Modern UI with Tailwind CSS
-- 🔔 Real-time Notifications
 - 📱 Responsive Design
 - 🛡️ Role-based Access Control
 - 🚀 Fast Performance
-- 🔄 Real-time Data Updates
+- 🔄 Data Updates
+- add update soft-delete for users, products, categories
+- adding additional gallery for each product base on productID by selecting name of product
 
 ## Tech Stack
 
@@ -21,6 +22,8 @@ A powerful and professional admin dashboard built with Next.js, featuring user m
 - Axios
 - NextAuth
 - React Icons
+- express.js--->server
+- database--->mongoose
 
 ## Getting Started
 
