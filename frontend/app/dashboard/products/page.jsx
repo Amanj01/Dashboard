@@ -192,6 +192,7 @@ function Products() {
               <label className="text-sm font-medium text-gray-700 mb-1">Price</label>
               <input
                 type="number"
+                min="0"
                 placeholder="Enter price"
                 className="rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
                 value={newProduct.price || ""}
