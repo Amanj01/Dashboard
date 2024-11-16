@@ -51,7 +51,7 @@ export default NextAuth({
   },
   session: {
     strategy: 'jwt',
-    maxAge: 6 * 60 * 60, // 6 hours
+    maxAge: 24 * 60 * 60, // 24 hours
   },
   secret: process.env.JWT_SECRET,
 });

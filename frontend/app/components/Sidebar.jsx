@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { HiMenuAlt2, HiX } from "react-icons/hi";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -16,6 +17,13 @@ export default function Sidebar() {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const handleLinkClick = (href) => {
+    if (isMobile) {
+      setIsOpen(false);
+    }
+    router.push(href);
+  };
 
   return (
     <>
@@ -29,7 +37,7 @@ export default function Sidebar() {
 
       {/* Sidebar */}
       <div
-        className={`fixed md:static h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out shadow-xl
+        className={`fixed md:static h-screen bg-gray-800 text-white transition-all duration-300 ease-in-out shadow-xl z-40
           ${isOpen ? "w-64 translate-x-0" : "w-0 -translate-x-full md:translate-x-0 md:w-64"}
         `}
       >
@@ -51,29 +59,28 @@ export default function Sidebar() {
               { href: "/dashboard/feedback", label: "Feedback" },
               { href: "/dashboard/users", label: "Users" },
             ].map((item, index) => (
-              <Link
+              <div
                 key={index}
-                href={item.href}
-                className="flex items-center px-6 py-3 hover:bg-gray-700 transition-colors duration-200"
+                onClick={() => handleLinkClick(item.href)}
+                className="flex items-center px-6 py-3 hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
               >
                 <span>{item.label}</span>
-              </Link>
+              </div>
             ))}
           </nav>
-
-          {/* Footer */}
-          <div className="p-4 border-t border-gray-700">
-            <div className="text-sm text-gray-400 text-center">
-              © 2024 Dashboard by Amanj01
+            {/* Footer */}
+            <div className="p-4 border-t border-gray-700">
+              <div className={`text-sm text-gray-400 text-center w-full ${!isOpen && 'hidden'}`}>
+                © 2024 Dashboard by Amanj01
+              </div>
             </div>
           </div>
-        </div>
       </div>
 
       {/* Overlay for mobile */}
       {isOpen && isMobile && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden"
+          className="fixed inset-0 z-30 md:hidden"
           onClick={() => setIsOpen(false)}
         />
       )}

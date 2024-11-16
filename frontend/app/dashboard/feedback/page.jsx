@@ -4,10 +4,12 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import DashboardLayout from "../../components/DashboardLayout";
 import { FaTrash } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 function Feedback() {
   const [feedbacks, setFeedbacks] = useState([]);
   const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     fetchFeedback();
@@ -24,6 +26,7 @@ function Feedback() {
       setFeedbacks(res.data);
     } catch (error) {
       console.error("Error fetching feedback:", error);
+      
     }
   };
 
@@ -39,15 +42,16 @@ function Feedback() {
         fetchFeedback();
       } catch (error) {
         console.error("Error deleting feedback:", error);
+        router.push('/auth/signin');
       }
     }
   };
 
   return (
     <DashboardLayout>
-      <div className="p-6">
+      <div className="px-6 py-8">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Feedback Management</h1>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Feedback Management</h1>
           <p className="text-gray-600">View and manage user feedback</p>
         </div>
 

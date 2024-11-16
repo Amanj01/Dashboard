@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 import axios from "axios";
 import DashboardLayout from "@/app/components/DashboardLayout";
 import { toast, ToastContainer } from 'react-toastify';
@@ -13,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
   const [newGallery, setNewGallery] = useState({ product: "", images: [] });
   const [imageFiles, setImageFiles] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     fetchGalleries();
@@ -34,6 +36,7 @@ import 'react-toastify/dist/ReactToastify.css';
       setGalleries(res.data);
     } catch (error) {
       toast.error("Failed to fetch galleries");
+      router.push('/auth/signin');
     }
   };
 

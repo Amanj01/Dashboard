@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DashboardLayout from "../../components/DashboardLayout";
 import { useSession } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 import toast, { Toaster } from 'react-hot-toast';
 import { FiUserPlus, FiTrash2, FiUsers } from 'react-icons/fi';
 
@@ -11,6 +12,7 @@ function Users() {
   const [newUser, setNewUser] = useState({ username: "", password: "", role: "customer" });
   const { data: session, status } = useSession();
   const [error, setError] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     if (status === 'authenticated' && session?.user?.accessToken) {
@@ -31,6 +33,7 @@ function Users() {
     } catch (error) {
       toast.error('Failed to fetch users');
       console.error("Error fetching users:", error);
+      router.push('/auth/signin');
     }
   };
 
@@ -95,8 +98,8 @@ function Users() {
       <Toaster position="top-right" />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-semibold text-gray-900 flex items-center">
-            <FiUsers className="mr-2" /> User Management
+          <h1 className="text-2xl md:text-3xl pt-8 font-semibold text-gray-900 flex items-center">
+            <FiUsers className="mr-2 " /> User Management
           </h1>
         </div>
 
