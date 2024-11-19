@@ -1,11 +1,19 @@
 import { useState, useEffect } from "react";
 import { HiMenuAlt2, HiX } from "react-icons/hi";
+import { FiLogOut } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const router = useRouter();
+
+    // Add logout handler
+    const handleLogout = () => {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userRole');
+      router.push('/auth/signin');
+    };
 
   useEffect(() => {
     const handleResize = () => {
@@ -68,6 +76,16 @@ export default function Sidebar() {
               </div>
             ))}
           </nav>
+        {/* Logout Button  */}
+          <div className="px-6 py-3 border-t border-gray-700">
+            <div
+              onClick={handleLogout}
+              className="flex items-center text-red-400 hover:text-red-300 hover:bg-gray-700 px-4 py-2 rounded-md cursor-pointer transition-colors duration-200"
+            >
+              <FiLogOut className="mr-2" />
+              <span>Logout</span>
+            </div>
+          </div>
             {/* Footer */}
             <div className="p-4 border-t border-gray-700">
               <div className={`text-sm text-gray-400 text-center w-full ${!isOpen && 'hidden'}`}>
