@@ -19,10 +19,18 @@ router.get('/:id', authMiddleware, adminMiddleware, async (req, res) => {
 // Add a new user (Admin only)
 router.post('/add', authMiddleware, adminMiddleware, async (req, res) => {
     const { username, password, role } = req.body;
+    
+    // Check if username already exists
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+        return res.status(409).json({ message: 'Username already exists' });
+    }
+    
     const user = new User({ username, password, role });
     await user.save();
     res.json(user);
 });
+
 
 // Soft delete a user
 router.delete('/soft-delete/:id', authMiddleware, adminMiddleware, async (req, res) => {

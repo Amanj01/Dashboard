@@ -112,28 +112,26 @@ function DashboardPage() {
 
 
         {/* New Charts Section */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
           {/* Products per Category Chart */}
           <div className="bg-white rounded-lg shadow-lg p-6 max-h-[400px]">
             <h2 className="text-xl font-semibold text-gray-800 mb-4">Products per Category</h2>
-            <div className="h-[400px]"> {/* Increase height for better visibility */}
+            <div className="h-[400px]">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart 
                   data={categoryData}
-                  margin={{ top: 20, right: 30, left: 20, bottom: 100 }} // Add margin for labels
+                  margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
                 >
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis 
                     dataKey="name" 
                     angle={-45} 
                     textAnchor="end" 
-                    height={100} // Increase height for labels
-                    interval={0} // Show all labels
-                    tick={{ fontSize: 12 }} // Adjust font size if needed
+                    height={100}
+                    interval={0}
+                    tick={{ fontSize: 12 }}
                   />
-                  <YAxis
-                   allowDecimals={false}
-                    />
+                  <YAxis allowDecimals={false} />
                   <Tooltip />
                   <Bar dataKey="count" fill="#3B82F6" />
                 </BarChart>
@@ -167,6 +165,7 @@ function DashboardPage() {
             </div>
           </div>
         </div>
+
       </div>
     </DashboardLayout>
   );

@@ -129,45 +129,95 @@ import 'react-toastify/dist/ReactToastify.css';
         </div>
 
         <div className="bg-white rounded-lg shadow overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Images</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+  <div className="overflow-x-auto -mx-4 sm:mx-0">
+    <div className="inline-block min-w-full align-middle">
+      <div className="overflow-hidden border border-gray-200 sm:rounded-lg">
+        {/* Mobile view with scroll */}
+        <div className="block sm:hidden overflow-y-auto max-h-[calc(100vh-20rem)]">
+          <table className="min-w-full divide-y divide-gray-200">
+            {/* Table content for mobile */}
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Images</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {galleries.map((gallery) => (
+                <tr key={gallery._id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{gallery.product?.title}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex flex-wrap gap-2">
+                      {gallery.images.map((image, index) => (
+                        <img
+                          key={index}
+                          src={`http://localhost:5000/${image}`}
+                          alt={`gallery-${index}`}
+                          className="w-16 h-16 object-cover rounded-md"
+                        />
+                      ))}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <button
+                      onClick={() => handleDeleteGallery(gallery._id)}
+                      className="text-red-600 hover:text-red-900 font-medium"
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {galleries.map((gallery) => (
-                  <tr key={gallery._id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{gallery.product?.title}</td>
-                    <td className="px-6 py-4">
-                      <div className="flex flex-wrap gap-2">
-                        {gallery.images.map((image, index) => (
-                          <img
-                            key={index}
-                            src={`http://localhost:5000/${image}`}
-                            alt={`gallery-${index}`}
-                            className="w-16 h-16 object-cover rounded-md"
-                          />
-                        ))}
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
-                      <button
-                        onClick={() => handleDeleteGallery(gallery._id)}
-                        className="text-red-600 hover:text-red-900 font-medium"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
         </div>
+
+        {/* Desktop/Tablet view with scroll */}
+        <div className="hidden sm:block overflow-y-auto" style={{ maxHeight: 'calc(100vh - 20rem)' }}>
+          <table className="min-w-full divide-y divide-gray-200">
+            {/* Same table content as mobile */}
+            <thead className="bg-gray-50 sticky top-0">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Product</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Images</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {galleries.map((gallery) => (
+                <tr key={gallery._id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{gallery.product?.title}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex flex-wrap gap-2">
+                      {gallery.images.map((image, index) => (
+                        <img
+                          key={index}
+                          src={`http://localhost:5000/${image}`}
+                          alt={`gallery-${index}`}
+                          className="w-16 h-16 object-cover rounded-md"
+                        />
+                      ))}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <button
+                      onClick={() => handleDeleteGallery(gallery._id)}
+                      className="text-red-600 hover:text-red-900 font-medium"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
       <ToastContainer position="bottom-right" />
     </DashboardLayout>

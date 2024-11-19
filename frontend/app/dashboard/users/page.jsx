@@ -43,21 +43,22 @@ function Users() {
       return;
     }
 
-    try {
-      await axios.post("http://localhost:5000/api/users/add", newUser, {
-        headers: { 
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${session.user.accessToken}`
+try {
+    await axios.post("http://localhost:5000/api/users/add", newUser, {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session.user.accessToken}`
         },
-      });
-      fetchUsers();
-      setNewUser({ username: "", password: "", role: "customer" });
-      toast.success('User added successfully!');
-    } catch (error) {
-      toast.error('Failed to add user');
-      console.error("Error adding user:", error);
-    }
-  };
+    });
+    fetchUsers();
+    setNewUser({ username: "", password: "", role: "customer" });
+    toast.success('User added successfully!');
+} catch (error) {
+    const errorMessage = error.response?.data?.message || 'Failed to add user';
+    toast.error(errorMessage);
+    console.error("Error adding user:", error);
+}
+  }
 
   const handleDeleteUser = async (id) => {
     try {
@@ -140,6 +141,11 @@ function Users() {
         </div>
 
         <div className="bg-white rounded-lg shadow overflow-hidden">
+  <div className="overflow-x-auto -mx-4 sm:mx-0">
+    <div className="inline-block min-w-full align-middle">
+      <div className="overflow-hidden border border-gray-200 sm:rounded-lg">
+        {/* Mobile view */}
+        <div className="block sm:hidden overflow-y-auto max-h-[calc(100vh-20rem)]">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -172,6 +178,46 @@ function Users() {
             </tbody>
           </table>
         </div>
+
+        {/* Desktop/Tablet view */}
+        <div className="hidden sm:block overflow-y-auto" style={{ maxHeight: 'calc(100vh - 20rem)' }}>
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50 sticky top-0">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {users.map((user) => (
+                <tr key={user._id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{user.username}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      user.role === 'admin' ? 'bg-purple-100 text-purple-800' : 'bg-green-100 text-green-800'
+                    }`}>
+                      {user.role}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button
+                      onClick={() => handleDeleteUser(user._id)}
+                      className="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                    >
+                      <FiTrash2 className="mr-1" /> Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
       </div>
     </DashboardLayout>
   );
