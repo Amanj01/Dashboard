@@ -32,4 +32,4 @@ npm install theLibreary --force
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/dashboard2.git
+git clone https://github.com/Amanj01/Dashboard.git
