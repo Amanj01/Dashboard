@@ -16,7 +16,7 @@ A powerful and professional admin dashboard built with Next.js, featuring user m
 
 ## Tech Stack
 
-- Next.js 13 (App Router)
+- Next.js 14 (App Router)
 - Tailwind CSS
 - React Hot Toast
 - Axios
